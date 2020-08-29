@@ -9,14 +9,14 @@ class Input extends React.Component {
   }
 
   handleChange({target}) {
-    this.setState((state) => ({value: target.value}));
+    this.setState({value: target.value});
   }
 
   handleSubmit(event) {
     event.preventDefault();
     if (this.state.value) {
       this.props.onSubmit(this.state.value);
-      this.setState((state) => ({value: ''}));
+      this.setState({value: ''});
     }
   }
 
