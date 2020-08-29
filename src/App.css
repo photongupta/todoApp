@@ -5,7 +5,6 @@
 .Todo{
   padding-left:10px;
   cursor: pointer;
-  font-weight: 400; 
 }
 
 .Complete{
@@ -20,5 +19,4 @@
 input {
   height:28px;
   font-size:16px;
-  font-weight: 400;
 }
