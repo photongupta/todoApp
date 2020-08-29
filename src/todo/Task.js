@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Item = function ({item, hasDone, toggleStatus, id}) {
+const Task = function ({task, hasDone, toggleStatus, id}) {
   return (
     <p
       className={hasDone ? 'Complete' : 'Incomplete'}
       onClick={() => toggleStatus(id)}
     >
-      {item}
+      {task}
     </p>
   );
 };
-export default Item;
+export default Task;

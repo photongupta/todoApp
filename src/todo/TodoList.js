@@ -1,45 +1,45 @@
 import React from 'react';
-import Item from './Item';
+import Task from './Task';
 import Input from './Input';
 
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {todoList: []};
-    this.addItem = this.addItem.bind(this);
-    this.toggleItemStatus = this.toggleItemStatus.bind(this);
+    this.addTask = this.addTask.bind(this);
+    this.toggleTaskStatus = this.toggleTaskStatus.bind(this);
   }
 
-  addItem(item) {
+  addTask(task) {
     this.setState((state) => {
       const todoList = state.todoList.slice();
-      todoList.push({item, hasDone: false});
+      todoList.push({task, hasDone: false});
       return {todoList};
     });
   }
 
-  toggleItemStatus(itemId) {
+  toggleTaskStatus(taskId) {
     this.setState((state) => {
       const todoList = state.todoList.map((todo) => Object.assign({}, todo));
-      todoList[itemId].hasDone = !todoList[itemId].hasDone;
+      todoList[taskId].hasDone = !todoList[taskId].hasDone;
       return {todoList};
     });
   }
 
   render() {
-    const items = this.state.todoList.map(({item, hasDone}, index) => (
-      <Item
+    const tasks = this.state.todoList.map(({task, hasDone}, index) => (
+      <Task
         key={index}
         id={index}
-        item={item}
+        task={task}
         hasDone={hasDone}
-        toggleStatus={this.toggleItemStatus}
+        toggleStatus={this.toggleTaskStatus}
       />
     ));
     return (
       <div>
-        {items}
-        <Input onSubmit={this.addItem} />
+        {tasks}
+        <Input onSubmit={this.addTask} />
       </div>
     );
   }
