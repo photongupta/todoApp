@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Task = function ({task, hasDone, toggleStatus, id}) {
+const Todo = function ({task, hasDone, toggleStatus, id}) {
   return (
     <p
       className={hasDone ? 'Complete' : 'Incomplete'}
@@ -10,4 +10,4 @@ const Task = function ({task, hasDone, toggleStatus, id}) {
     </p>
   );
 };
-export default Task;
+export default Todo;
