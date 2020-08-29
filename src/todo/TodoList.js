@@ -1,5 +1,5 @@
 import React from 'react';
-// import Item from './Item';
+import Item from './Item';
 import Input from './Input';
 
 class TodoList extends React.Component {
@@ -7,6 +7,7 @@ class TodoList extends React.Component {
     super(props);
     this.state = {todoList: []};
     this.addItem = this.addItem.bind(this);
+    this.toggleItemStatus = this.toggleItemStatus.bind(this);
   }
 
   addItem(item) {
@@ -16,10 +17,28 @@ class TodoList extends React.Component {
       return {todoList};
     });
   }
+
+  toggleItemStatus(itemId) {
+    this.setState((state) => {
+      const todoList = state.todoList.map((todo) => Object.assign({}, todo));
+      todoList[itemId].hasDone = !todoList[itemId].hasDone;
+      return {todoList};
+    });
+  }
+
   render() {
-    console.log(this.state.todoList);
+    const items = this.state.todoList.map(({item, hasDone}, index) => (
+      <Item
+        key={index}
+        id={index}
+        item={item}
+        hasDone={hasDone}
+        toggleStatus={this.toggleItemStatus}
+      />
+    ));
     return (
       <div>
+        {items}
         <Input onSubmit={this.addItem} />
       </div>
     );

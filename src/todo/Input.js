@@ -17,16 +17,17 @@ class Input extends React.Component {
     this.props.onSubmit(this.state.value);
     this.setState((state) => ({value: ''}));
   }
-  render() {
-    console.log(this.state.value);
 
+  render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <input
+            autoFocus
             type="text"
             value={this.state.value}
             onChange={this.handleChange}
+            placeholder="Add your todo here..."
           />
         </form>
       </div>
