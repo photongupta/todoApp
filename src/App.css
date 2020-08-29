@@ -1,12 +1,12 @@
 .Complete{
-  border-left :8px solid lightblue;
+  border-left :8px solid mediumseagreen;
   padding-left:15px;
   text-decoration:line-through;
   cursor: pointer;
 }
 
 .Incomplete{
-  border-left :8px solid mediumseagreen;
+  border-left :8px solid lightblue;
   padding-left:15px;
   cursor: pointer;
 }
