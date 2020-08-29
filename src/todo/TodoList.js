@@ -38,8 +38,8 @@ class TodoList extends React.Component {
       />
     ));
     return (
-      <div>
-        <h2>Todo</h2>
+      <div className="TodoList">
+        <h1>Todo</h1>
         {todoComponents}
         <Input onSubmit={this.addTodo} />
       </div>

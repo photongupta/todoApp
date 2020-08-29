@@ -1,12 +1,24 @@
-.Complete{
-  border-left :8px solid mediumseagreen;
-  padding-left:15px;
-  text-decoration:line-through;
+.TodoList{
+  margin-left: 40px;
+}
+
+.Todo{
+  padding-left:10px;
   cursor: pointer;
+  font-weight: 400; 
+}
+
+.Complete{
+  border-left :10px solid mediumseagreen;
+  text-decoration:line-through;
 }
 
 .Incomplete{
-  border-left :8px solid lightblue;
-  padding-left:15px;
-  cursor: pointer;
+  border-left :10px solid lightblue;
+}
+
+input {
+  height:28px;
+  font-size:16px;
+  font-weight: 400;
 }
