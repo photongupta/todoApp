@@ -20,9 +20,11 @@ class TodoList extends React.Component {
 
   toggleTodoStatus(todoId) {
     this.setState((state) => {
-      const todoList = state.todoList.map((todo) => Object.assign({}, todo));
+      const todoList = state.todoList.slice();
       const todoIndex = todoList.findIndex((todo) => todo.id === todoId);
-      todoList[todoIndex].hasDone = !todoList[todoIndex].hasDone;
+      const todo = Object.assign({}, todoList[todoIndex]);
+      todo.hasDone = !todo.hasDone;
+      todoList[todoIndex] = todo;
       return {todoList};
     });
   }
