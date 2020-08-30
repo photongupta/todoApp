@@ -13,7 +13,7 @@ class TodoList extends React.Component {
   addTodo(task) {
     this.setState((state) => {
       const todoList = state.todoList.slice();
-      todoList.push({task, hasDone: false, id: new Date().getTime()});
+      todoList.push({task, isDone: false, id: new Date().getTime()});
       return {todoList};
     });
   }
@@ -23,19 +23,19 @@ class TodoList extends React.Component {
       const todoList = state.todoList.slice();
       const todoIndex = todoList.findIndex((todo) => todo.id === todoId);
       const todo = Object.assign({}, todoList[todoIndex]);
-      todo.hasDone = !todo.hasDone;
+      todo.isDone = !todo.isDone;
       todoList[todoIndex] = todo;
       return {todoList};
     });
   }
 
   render() {
-    const todoComponents = this.state.todoList.map(({task, hasDone, id}) => (
+    const todoComponents = this.state.todoList.map(({task, isDone, id}) => (
       <Todo
         key={id}
         id={id}
         task={task}
-        hasDone={hasDone}
+        isDone={isDone}
         toggleStatus={this.toggleTodoStatus}
       />
     ));

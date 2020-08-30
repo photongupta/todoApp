@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Todo = function ({task, hasDone, toggleStatus, id}) {
+const Todo = function ({task, isDone, toggleStatus, id}) {
   return (
     <p
-      className={hasDone ? 'Todo Complete' : 'Todo Incomplete'}
+      className={isDone ? 'Todo Complete' : 'Todo Incomplete'}
       onClick={() => toggleStatus(id)}
     >
       {task}
