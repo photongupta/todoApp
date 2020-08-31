@@ -2,6 +2,10 @@ import React from 'react';
 import Todo from './Todo';
 import Input from './Input';
 
+const getId = (list) => {
+  return list.length ? list[list.length - 1].id + 1 : 1;
+};
+
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +20,7 @@ class TodoList extends React.Component {
       todoList.push({
         task,
         status: {isDone: false, isInProgress: false},
-        id: new Date().getTime(),
+        id: getId(this.state.todoList),
       });
       return {todoList};
     });
