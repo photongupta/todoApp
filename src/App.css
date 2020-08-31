@@ -2,21 +2,21 @@
   margin-left: 40px;
 }
 
-.Todo{
+.todoBox{
   padding-left:10px;
   cursor: pointer;
 }
 
-.Complete{
+.done{
   border-left :10px solid mediumseagreen;
   text-decoration:line-through;
 }
 
-.Incomplete{
+.todo{
   border-left :10px solid lightblue;
 }
 
-.InProgress{
+.doing{
   border-left :10px solid orange;
 }
 

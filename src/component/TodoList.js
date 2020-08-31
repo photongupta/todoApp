@@ -2,6 +2,16 @@ import React from 'react';
 import Todo from './Todo';
 import Input from './Input';
 
+const TODO = 'todo';
+const DOING = 'doing';
+const DONE = 'done';
+
+const toggle = {
+  [TODO]: DOING,
+  [DOING]: DONE,
+  [DONE]: TODO,
+};
+
 const getId = (list) => {
   return list.length ? list[list.length - 1].id + 1 : 1;
 };
@@ -19,7 +29,7 @@ class TodoList extends React.Component {
       const todoList = state.todoList.slice();
       todoList.push({
         task,
-        status: {isDone: false, isInProgress: false},
+        status: TODO,
         id: getId(this.state.todoList),
       });
       return {todoList};
@@ -31,15 +41,7 @@ class TodoList extends React.Component {
       const todoList = state.todoList.slice();
       const todoIndex = todoList.findIndex((todo) => todo.id === todoId);
       const todo = Object.assign({}, todoList[todoIndex]);
-      let newStatus = {isDone: false, isInProgress: true};
-
-      if (todo.status.isDone) {
-        newStatus = {isDone: false, isInProgress: false};
-      }
-      if (todo.status.isInProgress) {
-        newStatus = {isDone: true, isInProgress: false};
-      }
-      todo.status = newStatus;
+      todo.status = toggle[todo.status];
       todoList[todoIndex] = todo;
       return {todoList};
     });
