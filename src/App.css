@@ -16,6 +16,10 @@
   border-left :10px solid lightblue;
 }
 
+.InProgress{
+  border-left :10px solid orange;
+}
+
 input {
   height:28px;
   font-size:16px;

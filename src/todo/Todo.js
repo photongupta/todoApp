@@ -1,11 +1,16 @@
 import React from 'react';
 
-const Todo = function ({task, isDone, toggleStatus, id}) {
+const Todo = function ({task, status, toggleStatus, id}) {
+  let className = 'Todo Incomplete';
+  if (status.isDone) {
+    className = 'Todo Complete';
+  }
+  if (status.isInProgress) {
+    className = 'Todo InProgress';
+  }
+
   return (
-    <p
-      className={isDone ? 'Todo Complete' : 'Todo Incomplete'}
-      onClick={() => toggleStatus(id)}
-    >
+    <p className={className} onClick={() => toggleStatus(id)}>
       {task}
     </p>
   );
