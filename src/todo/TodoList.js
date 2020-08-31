@@ -7,7 +7,7 @@ class TodoList extends React.Component {
     super(props);
     this.state = {todoList: []};
     this.addTodo = this.addTodo.bind(this);
-    this.toggleTodoStatus = this.toggleTodoStatus.bind(this);
+    this.updateTodoStatus = this.updateTodoStatus.bind(this);
   }
 
   addTodo(task) {
@@ -22,7 +22,7 @@ class TodoList extends React.Component {
     });
   }
 
-  toggleTodoStatus(todoId) {
+  updateTodoStatus(todoId) {
     this.setState((state) => {
       const todoList = state.todoList.slice();
       const todoIndex = todoList.findIndex((todo) => todo.id === todoId);
@@ -48,7 +48,7 @@ class TodoList extends React.Component {
         id={id}
         task={task}
         status={status}
-        toggleStatus={this.toggleTodoStatus}
+        toggleStatus={this.updateTodoStatus}
       />
     ));
     return (

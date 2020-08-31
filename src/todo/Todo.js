@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Todo = function ({task, status, toggleStatus, id}) {
+const Todo = function ({task, status, updateStatus, id}) {
   let className = 'Todo Incomplete';
   if (status.isDone) {
     className = 'Todo Complete';
@@ -10,7 +10,7 @@ const Todo = function ({task, status, toggleStatus, id}) {
   }
 
   return (
-    <p className={className} onClick={() => toggleStatus(id)}>
+    <p className={className} onClick={() => updateStatus(id)}>
       {task}
     </p>
   );
