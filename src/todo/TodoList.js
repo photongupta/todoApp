@@ -48,7 +48,7 @@ class TodoList extends React.Component {
         id={id}
         task={task}
         status={status}
-        toggleStatus={this.updateTodoStatus}
+        updateStatus={this.updateTodoStatus}
       />
     ));
     return (
