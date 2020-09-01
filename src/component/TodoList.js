@@ -1,6 +1,6 @@
 import React from 'react';
 import Todo from './Todo';
-import TextInput from './TextTextInput';
+import TextInput from './TextInput';
 
 const TODO = 'todo';
 const DOING = 'doing';
@@ -39,14 +39,11 @@ class TodoList extends React.Component {
   }
 
   updateTodoStatus(todoId) {
-    this.setState((state) => {
-      const todoList = state.todoList.slice();
-      const todoIndex = todoList.findIndex((todo) => todo.id === todoId);
-      const todo = {...todoList[todoIndex]};
-      todo.status = toggle[todo.status];
-      todoList[todoIndex] = todo;
-      return {todoList};
+    const todoList = this.state.todoList.map((todo) => {
+      if (todo.id === todoId) todo.status = toggle[todo.status];
+      return todo;
     });
+    this.setState(() => ({todoList}));
   }
 
   render() {
