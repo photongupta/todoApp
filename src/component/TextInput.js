@@ -36,4 +36,6 @@ class TextInput extends React.Component {
   }
 }
 
+TextInput.defaultProps = {value: ''};
+
 export default TextInput;

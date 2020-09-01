@@ -53,7 +53,7 @@ class TodoList extends React.Component {
       <div className="TodoList">
         <Header updateHeader={this.updateHeader} value={header} />
         <Tasks todoList={todoList} updateStatus={this.updateStatus} />
-        <TextInput onSubmit={this.addTodo} value={''} />
+        <TextInput onSubmit={this.addTodo} />
       </div>
     );
   }
