@@ -3,7 +3,7 @@ import React from 'react';
 class Input extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = {value: null};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -16,20 +16,22 @@ class Input extends React.Component {
     event.preventDefault();
     if (this.state.value) {
       this.props.onSubmit(this.state.value);
-      this.setState({value: ''});
+      this.setState({value: null});
     }
   }
 
   render() {
+    console.log(this.state.value);
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <input
-            autoFocus
             type="text"
-            value={this.state.value}
+            value={
+              this.state.value === null ? this.props.value : this.state.value
+            }
             onChange={this.handleChange}
-            placeholder="Add your todo here..."
+            className={this.props.className}
           />
         </form>
       </div>

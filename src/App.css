@@ -20,7 +20,14 @@
   border-left :10px solid orange;
 }
 
-input {
+.newTodo {
   height:28px;
   font-size:16px;
+}
+
+.todoHeader{
+  height: 60px;
+  margin-bottom: -8px;
+  font-size: 30px;
+  border: none;
 }

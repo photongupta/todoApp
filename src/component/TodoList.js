@@ -5,6 +5,7 @@ import Input from './Input';
 const TODO = 'todo';
 const DOING = 'doing';
 const DONE = 'done';
+const DEFAULT_HEADER = 'Todo';
 
 const toggle = {
   [TODO]: DOING,
@@ -19,19 +20,20 @@ const getId = (list) => {
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {todoList: []};
+    this.state = {todoList: [], header: DEFAULT_HEADER};
     this.addTodo = this.addTodo.bind(this);
     this.updateTodoStatus = this.updateTodoStatus.bind(this);
+    this.updateHeader = this.updateHeader.bind(this);
+  }
+
+  updateHeader(header) {
+    this.setState(() => ({header}));
   }
 
   addTodo(task) {
     this.setState((state) => {
       const todoList = state.todoList.slice();
-      todoList.push({
-        task,
-        status: TODO,
-        id: getId(this.state.todoList),
-      });
+      todoList.push({task, status: TODO, id: getId(this.state.todoList)});
       return {todoList};
     });
   }
@@ -40,7 +42,7 @@ class TodoList extends React.Component {
     this.setState((state) => {
       const todoList = state.todoList.slice();
       const todoIndex = todoList.findIndex((todo) => todo.id === todoId);
-      const todo = Object.assign({}, todoList[todoIndex]);
+      const todo = {...todoList[todoIndex]};
       todo.status = toggle[todo.status];
       todoList[todoIndex] = todo;
       return {todoList};
@@ -59,9 +61,13 @@ class TodoList extends React.Component {
     ));
     return (
       <div className="TodoList">
-        <h1>Todo</h1>
+        <Input
+          onSubmit={this.updateHeader}
+          className={'todoHeader'}
+          value={this.state.header}
+        />
         {todoComponents}
-        <Input onSubmit={this.addTodo} />
+        <Input onSubmit={this.addTodo} className={'newTodo'} value={''} />
       </div>
     );
   }
