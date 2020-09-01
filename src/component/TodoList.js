@@ -2,17 +2,9 @@ import React from 'react';
 import Tasks from './Tasks';
 import TextInput from './TextInput';
 import Title from './Title';
+import {getNextState, getDefaultState} from '../TodoStates';
 
-const TODO = 'todo';
-const DOING = 'doing';
-const DONE = 'done';
 const DEFAULT_TITLE = 'Todo';
-
-const toggle = {
-  [TODO]: DOING,
-  [DOING]: DONE,
-  [DONE]: TODO,
-};
 
 const getId = (list) => {
   return list.length ? list[list.length - 1].id + 1 : 1;
@@ -34,14 +26,18 @@ class TodoList extends React.Component {
   addTodo(task) {
     this.setState((state) => {
       const todoList = state.todoList.slice();
-      todoList.push({task, status: TODO, id: getId(this.state.todoList)});
+      todoList.push({
+        task,
+        status: getDefaultState(),
+        id: getId(this.state.todoList),
+      });
       return {todoList};
     });
   }
 
   updateStatus(todoId) {
     const todoList = this.state.todoList.map((todo) => {
-      if (todo.id === todoId) todo.status = toggle[todo.status];
+      if (todo.id === todoId) todo.status = getNextState(todo.status);
       return todo;
     });
     this.setState(() => ({todoList}));
