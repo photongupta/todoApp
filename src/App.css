@@ -20,13 +20,15 @@
   border-left :10px solid orange;
 }
 
-.newTodo {
-  height:28px;
-  font-size:16px;
+.header{
+  font-weight:600;
+  font-size:18px;
+  margin:10px;
 }
 
-.todoHeader{
-  height: 60px;
-  font-size: 30px;
-  border: none;
+input{
+  height:28px;
+  font-size:16px;
+  margin:10px;
 }
+

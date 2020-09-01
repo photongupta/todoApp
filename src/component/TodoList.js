@@ -1,6 +1,7 @@
 import React from 'react';
 import Tasks from './Tasks';
 import TextInput from './TextInput';
+import Header from './Header';
 
 const TODO = 'todo';
 const DOING = 'doing';
@@ -50,13 +51,9 @@ class TodoList extends React.Component {
     const {todoList, header} = this.state;
     return (
       <div className="TodoList">
-        <TextInput
-          onSubmit={this.updateHeader}
-          className={'todoHeader'}
-          value={header}
-        />
+        <Header updateHeader={this.updateHeader} value={header} />
         <Tasks todoList={todoList} updateStatus={this.updateStatus} />
-        <TextInput onSubmit={this.addTodo} className={'newTodo'} value={''} />
+        <TextInput onSubmit={this.addTodo} value={''} />
       </div>
     );
   }
