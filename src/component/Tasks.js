@@ -1,9 +1,9 @@
 import React from 'react';
-import Todo from './Todo';
+import Task from './Task';
 
 const Tasks = function ({todoList, updateStatus}) {
   const tasks = todoList.map(({task, status, id}) => (
-    <Todo
+    <Task
       key={id}
       id={id}
       task={task}

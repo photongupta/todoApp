@@ -1,5 +1,5 @@
 import React from 'react';
-import Todo from './Todo';
+import Tasks from './Tasks';
 import TextInput from './TextInput';
 
 const TODO = 'todo';
@@ -22,7 +22,7 @@ class TodoList extends React.Component {
     super(props);
     this.state = {todoList: [], header: DEFAULT_HEADER};
     this.addTodo = this.addTodo.bind(this);
-    this.updateTodoStatus = this.updateTodoStatus.bind(this);
+    this.updateStatus = this.updateStatus.bind(this);
     this.updateHeader = this.updateHeader.bind(this);
   }
 
@@ -38,7 +38,7 @@ class TodoList extends React.Component {
     });
   }
 
-  updateTodoStatus(todoId) {
+  updateStatus(todoId) {
     const todoList = this.state.todoList.map((todo) => {
       if (todo.id === todoId) todo.status = toggle[todo.status];
       return todo;
@@ -47,23 +47,15 @@ class TodoList extends React.Component {
   }
 
   render() {
-    const todoComponents = this.state.todoList.map(({task, status, id}) => (
-      <Todo
-        key={id}
-        id={id}
-        task={task}
-        status={status}
-        updateStatus={this.updateTodoStatus}
-      />
-    ));
+    const {todoList, header} = this.state;
     return (
       <div className="TodoList">
         <TextInput
           onSubmit={this.updateHeader}
           className={'todoHeader'}
-          value={this.state.header}
+          value={header}
         />
-        {todoComponents}
+        <Tasks todoList={todoList} updateStatus={this.updateStatus} />
         <TextInput onSubmit={this.addTodo} className={'newTodo'} value={''} />
       </div>
     );
