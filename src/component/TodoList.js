@@ -20,7 +20,7 @@ class TodoList extends React.Component {
   }
 
   updateTitle(title) {
-    this.setState(() => ({title}));
+    this.setState({title});
   }
 
   addTodo(task) {
@@ -35,7 +35,7 @@ class TodoList extends React.Component {
       if (todo.id === todoId) todo.status = getNextState(todo.status);
       return todo;
     });
-    this.setState(() => ({todoList}));
+    this.setState({todoList});
   }
 
   render() {
