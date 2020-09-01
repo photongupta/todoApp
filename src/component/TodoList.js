@@ -1,12 +1,12 @@
 import React from 'react';
 import Tasks from './Tasks';
 import TextInput from './TextInput';
-import Header from './Header';
+import Title from './Title';
 
 const TODO = 'todo';
 const DOING = 'doing';
 const DONE = 'done';
-const DEFAULT_HEADER = 'Todo';
+const DEFAULT_TITLE = 'Todo';
 
 const toggle = {
   [TODO]: DOING,
@@ -21,14 +21,14 @@ const getId = (list) => {
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {todoList: [], header: DEFAULT_HEADER};
+    this.state = {todoList: [], title: DEFAULT_TITLE};
     this.addTodo = this.addTodo.bind(this);
     this.updateStatus = this.updateStatus.bind(this);
-    this.updateHeader = this.updateHeader.bind(this);
+    this.updateTitle = this.updateTitle.bind(this);
   }
 
-  updateHeader(header) {
-    this.setState(() => ({header}));
+  updateTitle(title) {
+    this.setState(() => ({title}));
   }
 
   addTodo(task) {
@@ -48,10 +48,10 @@ class TodoList extends React.Component {
   }
 
   render() {
-    const {todoList, header} = this.state;
+    const {todoList, title} = this.state;
     return (
       <div className="TodoList">
-        <Header updateHeader={this.updateHeader} value={header} />
+        <Title updateTitle={this.updateTitle} value={title} />
         <Tasks todoList={todoList} updateStatus={this.updateStatus} />
         <TextInput onSubmit={this.addTodo} />
       </div>
