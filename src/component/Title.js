@@ -20,7 +20,7 @@ class Title extends React.Component {
 
   render() {
     const title = (
-      <p className={'title'} onClick={this.toggleEditingStatus}>
+      <p className="title" onClick={this.toggleEditingStatus}>
         {this.props.value}
       </p>
     );

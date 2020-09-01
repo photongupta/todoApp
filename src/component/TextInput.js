@@ -23,11 +23,9 @@ class TextInput extends React.Component {
   render() {
     const value = this.state.value;
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" value={value} onChange={this.handleChange} />
-        </form>
-      </div>
+      <form onSubmit={this.handleSubmit}>
+        <input type="text" value={value} onChange={this.handleChange} />
+      </form>
     );
   }
 }
