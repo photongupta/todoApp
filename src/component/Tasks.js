@@ -1,7 +1,7 @@
 import React from 'react';
 import Task from './Task';
 
-const Tasks = function ({todoList, updateStatus}) {
+const Tasks = function ({todoList, updateStatus, removeTask}) {
   const tasks = todoList.map(({task, status, id}) => (
     <Task
       key={id}
@@ -9,6 +9,7 @@ const Tasks = function ({todoList, updateStatus}) {
       task={task}
       status={status}
       updateStatus={updateStatus}
+      removeTask={removeTask}
     />
   ));
   return <div>{tasks}</div>;

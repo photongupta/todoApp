@@ -29,7 +29,25 @@
 
 input{
   height:28px;
+  width:200px;
   font-size:16px;
   margin-top:10px;
+}
+
+.todoContainer{
+  display:flex;
+  justify-content: space-between;
+  width:200px;
+}
+
+.todoContainer:hover .remove{
+    display: block;
+  }
+
+.remove{
+  margin-top:15px;
+  opacity:.5;
+  display:none;
+  cursor: pointer;
 }
 

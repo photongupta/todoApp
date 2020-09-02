@@ -14,7 +14,8 @@ class TodoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {todoList: [], title: DEFAULT_TITLE};
-    this.addTodo = this.addTodo.bind(this);
+    this.addTask = this.addTask.bind(this);
+    this.removeTask = this.removeTask.bind(this);
     this.updateStatus = this.updateStatus.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
   }
@@ -23,17 +24,22 @@ class TodoList extends React.Component {
     this.setState({title});
   }
 
-  addTodo(task) {
+  addTask(task) {
     const id = getId(this.state.todoList);
     this.setState(({todoList}) => ({
       todoList: todoList.concat({task, status: getDefaultState(), id}),
     }));
   }
 
-  updateStatus(todoId) {
-    const todoList = this.state.todoList.map((todo) => {
-      if (todo.id === todoId) todo.status = getNextState(todo.status);
-      return todo;
+  removeTask(taskId) {
+    const todoList = this.state.todoList.filter((task) => task.id !== taskId);
+    this.setState({todoList});
+  }
+
+  updateStatus(taskId) {
+    const todoList = this.state.todoList.map((task) => {
+      if (task.id === taskId) task.status = getNextState(task.status);
+      return task;
     });
     this.setState({todoList});
   }
@@ -43,8 +49,12 @@ class TodoList extends React.Component {
     return (
       <div className="TodoList">
         <Title updateTitle={this.updateTitle} value={title} />
-        <Tasks todoList={todoList} updateStatus={this.updateStatus} />
-        <TextInput onSubmit={this.addTodo} />
+        <Tasks
+          todoList={todoList}
+          updateStatus={this.updateStatus}
+          removeTask={this.removeTask}
+        />
+        <TextInput onSubmit={this.addTask} />
       </div>
     );
   }
