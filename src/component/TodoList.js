@@ -25,10 +25,10 @@ class TodoList extends React.Component {
   }
 
   addTask(task) {
-    const id = getId(this.state.todoList);
-    this.setState(({todoList}) => ({
-      todoList: todoList.concat({task, status: getDefaultState(), id}),
-    }));
+    this.setState(({todoList}) => {
+      const id = getId(todoList);
+      return {todoList: todoList.concat({task, id, status: getDefaultState()})};
+    });
   }
 
   removeTask(taskId) {
@@ -38,11 +38,12 @@ class TodoList extends React.Component {
   }
 
   updateStatus(taskId) {
-    const todoList = this.state.todoList.map((task) => {
-      if (task.id === taskId) task.status = getNextState(task.status);
-      return task;
+    this.setState(({todoList}) => {
+      const newTodoList = todoList.map((task) => ({...task}));
+      const index = newTodoList.findIndex((task) => task.id === taskId);
+      newTodoList[index].status = getNextState(newTodoList[index].status);
+      return {todoList: newTodoList};
     });
-    this.setState({todoList});
   }
 
   render() {
