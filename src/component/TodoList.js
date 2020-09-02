@@ -4,16 +4,10 @@ import TextInput from './TextInput';
 import Title from './Title';
 import {getNextState, getDefaultState} from '../TodoStates';
 
-const DEFAULT_TITLE = 'Todo';
-
-const getId = (list) => {
-  return list.length ? list[list.length - 1].id + 1 : 1;
-};
-
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {todoList: [], title: DEFAULT_TITLE};
+    this.state = {todoList: [], title: 'Todo', lastId: 0};
     this.addTask = this.addTask.bind(this);
     this.removeTask = this.removeTask.bind(this);
     this.updateStatus = this.updateStatus.bind(this);
@@ -25,9 +19,11 @@ class TodoList extends React.Component {
   }
 
   addTask(task) {
-    this.setState(({todoList}) => {
-      const id = getId(todoList);
-      return {todoList: todoList.concat({task, id, status: getDefaultState()})};
+    this.setState(({todoList, lastId}) => {
+      const id = lastId + 1;
+      const status = getDefaultState();
+      const newTodoList = todoList.concat({task, id, status});
+      return {todoList: newTodoList, lastId: id};
     });
   }
 
