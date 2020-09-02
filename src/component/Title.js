@@ -27,7 +27,7 @@ class Title extends React.Component {
     const inputBox = (
       <TextInput onSubmit={this.updateTitle} value={this.props.value} />
     );
-    return <div>{this.state.isEditable ? inputBox : title}</div>;
+    return this.state.isEditable ? inputBox : title;
   }
 }
 
