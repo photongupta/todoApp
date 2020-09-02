@@ -32,8 +32,9 @@ class TodoList extends React.Component {
   }
 
   removeTask(taskId) {
-    const todoList = this.state.todoList.filter((task) => task.id !== taskId);
-    this.setState({todoList});
+    this.setState((state) => ({
+      todoList: state.todoList.filter((task) => task.id !== taskId),
+    }));
   }
 
   updateStatus(taskId) {
