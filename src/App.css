@@ -1,4 +1,4 @@
-.TodoList{
+.todoList{
   margin-left: 40px;
 }
 
@@ -34,13 +34,13 @@ input{
   margin-top:10px;
 }
 
-.todoContainer{
+.container{
   display:flex;
   justify-content: space-between;
   width:200px;
 }
 
-.todoContainer:hover .remove{
+.container:hover .remove{
     display: block;
   }
 

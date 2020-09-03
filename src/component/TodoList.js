@@ -2,16 +2,20 @@ import React from 'react';
 import Tasks from './Tasks';
 import TextInput from './TextInput';
 import Title from './Title';
+import Delete from './Delete';
 import {getNextState, getDefaultState} from '../TodoStates';
+
+const DEFAULT_TITLE = 'Todo';
 
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {todoList: [], title: 'Todo', lastId: 0};
+    this.state = {todoList: [], title: DEFAULT_TITLE, lastId: 0};
     this.addTask = this.addTask.bind(this);
     this.removeTask = this.removeTask.bind(this);
-    this.updateStatus = this.updateStatus.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
+    this.updateStatus = this.updateStatus.bind(this);
+    this.resetTodoList = this.resetTodoList.bind(this);
   }
 
   updateTitle(title) {
@@ -42,11 +46,18 @@ class TodoList extends React.Component {
     });
   }
 
+  resetTodoList() {
+    this.setState({todoList: [], title: DEFAULT_TITLE, lastId: 0});
+  }
+
   render() {
     const {todoList, title} = this.state;
     return (
-      <div className="TodoList">
-        <Title updateTitle={this.updateTitle} value={title} />
+      <div className="todoList">
+        <div className="container">
+          <Title updateTitle={this.updateTitle} value={title} />
+          <Delete onClick={this.resetTodoList} />
+        </div>
         <Tasks
           todoList={todoList}
           updateStatus={this.updateStatus}

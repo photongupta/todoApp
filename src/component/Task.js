@@ -1,14 +1,13 @@
 import React from 'react';
+import Delete from './Delete';
 
 const Task = function ({task, status, updateStatus, removeTask, id}) {
   return (
-    <div className="todoContainer">
+    <div className="container">
       <p className={`todoBox ${status}`} onClick={() => updateStatus(id)}>
         {task}
       </p>
-      <div className="remove" onClick={() => removeTask(id)}>
-        X
-      </div>
+      <Delete onClick={removeTask} id={id} />
     </div>
   );
 };
