@@ -1,34 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TextInput from './TextInput';
 
-class Title extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {isEditable: false};
-    this.toggleEditingStatus = this.toggleEditingStatus.bind(this);
-    this.updateTitle = this.updateTitle.bind(this);
-  }
+const Title = function (props) {
+  const [isEditable, toggleEditable] = useState(false);
 
-  toggleEditingStatus() {
-    this.setState((state) => ({isEditable: !state.isEditable}));
-  }
+  const updateTitle = function (title) {
+    toggleEditable(!isEditable);
+    props.updateTitle(title);
+  };
 
-  updateTitle(title) {
-    this.toggleEditingStatus();
-    this.props.updateTitle(title);
-  }
-
-  render() {
-    const title = (
-      <p className="title" onClick={this.toggleEditingStatus}>
-        {this.props.value}
-      </p>
-    );
-    const inputBox = (
-      <TextInput onSubmit={this.updateTitle} value={this.props.value} />
-    );
-    return this.state.isEditable ? inputBox : title;
-  }
-}
+  const title = (
+    <p className="title" onClick={() => toggleEditable(!isEditable)}>
+      {props.value}
+    </p>
+  );
+  const inputBox = <TextInput onSubmit={updateTitle} value={props.value} />;
+  return isEditable ? inputBox : title;
+};
 
 export default Title;
