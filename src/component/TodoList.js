@@ -2,10 +2,11 @@ import React from 'react';
 import Tasks from './Tasks';
 import TextInput from './TextInput';
 import Title from './Title';
-import Delete from './Delete';
+import WithDelete from './WithDelete';
 import {getNextState, getDefaultState} from '../TodoStates';
 
 const DEFAULT_TITLE = 'Todo';
+const TitleWithDelete = WithDelete(Title);
 
 class TodoList extends React.Component {
   constructor(props) {
@@ -54,14 +55,15 @@ class TodoList extends React.Component {
     const {todoList, title} = this.state;
     return (
       <div className="todoList">
-        <div className="container">
-          <Title updateTitle={this.updateTitle} value={title} />
-          <Delete onClick={this.resetTodoList} />
-        </div>
+        <TitleWithDelete
+          updateTitle={this.updateTitle}
+          value={title}
+          handleDelete={this.resetTodoList}
+        />
         <Tasks
           todoList={todoList}
           updateStatus={this.updateStatus}
-          removeTask={this.removeTask}
+          handleDelete={this.removeTask}
         />
         <TextInput onSubmit={this.addTask} />
       </div>
