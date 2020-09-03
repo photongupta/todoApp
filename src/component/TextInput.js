@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 const TextInput = function (props) {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(props.value);
 
   const handleChange = (e) => setValue(e.target.value);
 
