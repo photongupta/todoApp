@@ -5,44 +5,45 @@ import Title from './Title';
 import WithDelete from './WithDelete';
 import {getNextState, getDefaultState} from '../TodoStates';
 
-const DEFAULT_TITLE = 'Todo';
 const TitleWithDelete = WithDelete(Title);
 
-const TodoList = function () {
-  const [todoList, updateTodoList] = useState([]);
-  const [title, updateTitle] = useState(DEFAULT_TITLE);
-  const [id, updateId] = useState(0);
+const TodoList = function (props) {
+  const defaultState = {todoList: [], title: 'Todo', lastId: 0};
+  let [{todoList, title, lastId}, updateTodoInfo] = useState(defaultState);
 
   const addTask = function (task) {
-    updateTodoList([...todoList, {task, id, status: getDefaultState()}]);
-    updateId(id + 1);
-  };
-
-  const removeTask = function (taskId) {
-    updateTodoList(todoList.filter((task) => task.id !== taskId));
-  };
-
-  const updateStatus = function (taskId) {
-    updateTodoList(() => {
-      const newTodoList = todoList.map((task) => ({...task}));
-      const index = newTodoList.findIndex((task) => task.id === taskId);
-      newTodoList[index].status = getNextState(newTodoList[index].status);
-      return newTodoList;
+    updateTodoInfo({
+      todoList: [...todoList, {task, id: lastId++, status: getDefaultState()}],
+      lastId,
+      title,
     });
   };
 
-  const resetTodoInfo = function (taskId) {
-    updateTodoList([]);
-    updateTitle(DEFAULT_TITLE);
-    updateId(0);
+  const removeTask = function (taskId) {
+    updateTodoInfo({
+      todoList: todoList.filter((task) => task.id !== taskId),
+      lastId,
+      title,
+    });
   };
+
+  const updateStatus = function (taskId) {
+    updateTodoInfo(() => {
+      const newTodoList = todoList.map((task) => ({...task}));
+      const index = newTodoList.findIndex((task) => task.id === taskId);
+      newTodoList[index].status = getNextState(newTodoList[index].status);
+      return {todoList: newTodoList, title, lastId};
+    });
+  };
+
+  console.log(title);
 
   return (
     <div className="todoList">
       <TitleWithDelete
-        updateTitle={(title) => updateTitle(title)}
+        updateTitle={(title) => updateTodoInfo({todoList, title, lastId})}
         value={title}
-        handleDelete={resetTodoInfo}
+        handleDelete={() => updateTodoInfo(defaultState)}
       />
       <Tasks
         todoList={todoList}
