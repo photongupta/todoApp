@@ -1,49 +1,54 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Tasks from './Tasks';
 import TextInput from './TextInput';
 import Title from './Title';
 import WithDelete from './WithDelete';
-import {getNextState, getDefaultState} from '../TodoStates';
+
+const sendPostReq = function (url, body, setTodoList, setTitle) {
+  fetch(url, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(body),
+  })
+    .then((res) => res.json())
+    .then(({todoList, title}) => {
+      todoList && setTodoList(todoList);
+      title && setTitle(title);
+    });
+};
 
 const TitleWithDelete = WithDelete(Title);
 
-const TodoList = function (props) {
-  const defaultState = {todoList: [], title: 'Todo', lastId: 0};
-  let [{todoList, title, lastId}, updateTodoInfo] = useState(defaultState);
+const TodoList = function () {
+  let [todoList, setTodoList] = useState(null);
+  let [title, setTitle] = useState(null);
 
-  const addTask = function (task) {
-    updateTodoInfo({
-      todoList: [...todoList, {task, id: lastId++, status: getDefaultState()}],
-      lastId,
-      title,
-    });
-  };
+  const addTask = (task) => sendPostReq('addTask', {task}, setTodoList);
 
-  const removeTask = function (taskId) {
-    updateTodoInfo({
-      todoList: todoList.filter((task) => task.id !== taskId),
-      lastId,
-      title,
-    });
-  };
+  const removeTask = (id) => sendPostReq('removeTask', {id}, setTodoList);
 
-  const updateStatus = function (taskId) {
-    updateTodoInfo(() => {
-      const newTodoList = todoList.map((task) => ({...task}));
-      const index = newTodoList.findIndex((task) => task.id === taskId);
-      newTodoList[index].status = getNextState(newTodoList[index].status);
-      return {todoList: newTodoList, title, lastId};
-    });
-  };
+  const updateStatus = (id) => sendPostReq('updateStatus', {id}, setTodoList);
 
-  console.log(title);
+  const updateTitle = (title) =>
+    sendPostReq('updateTitle', {title}, null, setTitle);
+
+  const resetTodoDetails = () =>
+    sendPostReq('resetTodoDetails', {}, setTodoList, setTitle);
+
+  useEffect(() => {
+    resetTodoDetails();
+  }, []);
+
+  if (!todoList) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <div className="todoList">
       <TitleWithDelete
-        updateTitle={(title) => updateTodoInfo({todoList, title, lastId})}
+        updateTitle={updateTitle}
         value={title}
-        handleDelete={() => updateTodoInfo(defaultState)}
+        handleDelete={resetTodoDetails}
       />
       <Tasks
         todoList={todoList}
