@@ -8,10 +8,14 @@ const toggle = {
   [DONE]: TODO,
 };
 
-const getNextState = (state) => toggle[state];
-const getDefaultState = () => TODO;
+const getNextStatus = (state) => toggle[state];
+const getDefaultStatus = () => TODO;
 
 let todoDetails = {todoList: [], title: 'Todo', lastId: 0};
+
+const getDefaultState = (req, res) => {
+  res.json({todoList: [], title: 'Todo', lastId: 0});
+};
 
 const addTask = (req, res) => {
   console.log(req.body);
@@ -20,7 +24,7 @@ const addTask = (req, res) => {
   todoDetails.todoList.push({
     task,
     id,
-    status: getDefaultState(),
+    status: getDefaultStatus(),
   });
   console.log(todoDetails);
   res.json({id});
@@ -45,7 +49,7 @@ const updateStatus = (req, res) => {
   const index = newTodoList.findIndex(
     (task) => task.id === Number(req.body.id)
   );
-  newTodoList[index].status = getNextState(newTodoList[index].status);
+  newTodoList[index].status = getNextStatus(newTodoList[index].status);
   todoDetails.todoList = newTodoList;
   console.log(todoDetails);
   res.json({todoList: newTodoList});
@@ -58,6 +62,7 @@ const updateTitle = (req, res) => {
 };
 
 module.exports = {
+  getDefaultState,
   addTask,
   removeTask,
   updateTitle,

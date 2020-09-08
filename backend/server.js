@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const {
+  getDefaultState,
   addTask,
   removeTask,
   updateTitle,
@@ -17,6 +18,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/defaultState', getDefaultState);
 app.post('/addTask', addTask);
 app.post('/removeTask', removeTask);
 app.post('/updateStatus', updateStatus);
