@@ -1,24 +1,53 @@
-.TodoList{
+.todoList{
   margin-left: 40px;
 }
 
-.Todo{
+.todoBox{
   padding-left:10px;
   cursor: pointer;
-  font-weight: 400; 
 }
 
-.Complete{
+.done{
   border-left :10px solid mediumseagreen;
   text-decoration:line-through;
 }
 
-.Incomplete{
+.todo{
   border-left :10px solid lightblue;
 }
 
-input {
-  height:28px;
-  font-size:16px;
-  font-weight: 400;
+.doing{
+  border-left :10px solid orange;
 }
+
+.title{
+  font-weight:600;
+  font-size:18px;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+input{
+  height:28px;
+  width:200px;
+  font-size:16px;
+  margin-top:10px;
+}
+
+.container{
+  display:flex;
+  justify-content: space-between;
+  width:200px;
+}
+
+.container:hover .remove{
+    display: block;
+  }
+
+.remove{
+  margin-top:15px;
+  opacity:.5;
+  display:none;
+  cursor: pointer;
+}
+
