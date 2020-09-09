@@ -3,55 +3,42 @@ import Tasks from './Tasks';
 import TextInput from './TextInput';
 import Title from './Title';
 import WithDelete from './WithDelete';
-
-const sendPostReq = function (url, body, setTodoList, setTitle) {
-  fetch(url, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(body),
-  })
-    .then((res) => res.json())
-    .then(({todoList, title}) => {
-      todoList && setTodoList(todoList);
-      title && setTitle(title);
-    });
-};
+import todoApi from './todoApi';
 
 const TitleWithDelete = WithDelete(Title);
 
 const TodoList = function () {
-  let [todoList, setTodoList] = useState(null);
-  let [title, setTitle] = useState(null);
+  let [todoDetails, setTodoDetails] = useState(null);
 
-  const addTask = (task) => sendPostReq('addTask', {task}, setTodoList);
+  const addTask = (task) => todoApi.addTask(task).then(setTodoDetails);
 
-  const removeTask = (id) => sendPostReq('removeTask', {id}, setTodoList);
+  const removeTask = (id) => todoApi.removeTask(id).then(setTodoDetails);
 
-  const updateStatus = (id) => sendPostReq('updateStatus', {id}, setTodoList);
+  const updateStatus = (id) => todoApi.updateStatus(id).then(setTodoDetails);
 
   const updateTitle = (title) =>
-    sendPostReq('updateTitle', {title}, null, setTitle);
+    todoApi.updateTitle(title).then(setTodoDetails);
 
   const resetTodoDetails = () =>
-    sendPostReq('resetTodoDetails', {}, setTodoList, setTitle);
+    todoApi.resetTodoDetails().then(setTodoDetails);
 
   useEffect(() => {
-    resetTodoDetails();
+    todoApi.getTodoDetails().then(setTodoDetails);
   }, []);
 
-  if (!todoList) {
-    return <h1>Loading...</h1>;
+  if (!todoDetails) {
+    return <h3>Loading...</h3>;
   }
 
   return (
     <div className="todoList">
       <TitleWithDelete
         updateTitle={updateTitle}
-        value={title}
+        value={todoDetails.title}
         handleDelete={resetTodoDetails}
       />
       <Tasks
-        todoList={todoList}
+        todoList={todoDetails.todoList}
         updateStatus={updateStatus}
         handleDelete={removeTask}
       />
